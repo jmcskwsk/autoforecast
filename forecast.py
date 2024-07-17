@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 import numpy as np
+import os
+from datetime import datetime
 
 def main():
     # Load the Excel file
@@ -33,9 +35,16 @@ def main():
     # Add the forecasted values as a new column in the DataFrame
     df['Forecast'] = forecasts
 
-    # Save the updated DataFrame to a new Excel file
-    print("Saving forecast to forecast.xlsx")
-    df.to_excel('forecast.xlsx', index=False)
+    # Create the Predictions directory if it doesn't exist
+    os.makedirs('Predictions', exist_ok=True)
+
+    # Generate a timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    # Save the updated DataFrame to a new Excel file with a timestamp
+    filename = f'Predictions/forecast_{timestamp}.xlsx'
+    print(f"Saving forecast to {filename}")
+    df.to_excel(filename, index=False)
 
 if __name__ == "__main__":
     main()
