@@ -101,17 +101,14 @@ if __name__ == "__main__":
     voting_regressor = VotingRegressor([('svr', svr), ('knn', knn)])
 
     # Define the parameter grid for SVR and KNN
-    # Note: The number of neighbors should not exceed the number of samples
-    # in the training data, so we adjust the parameter grid accordingly.
     svr_param_grid = {
-        'svr__C': [0.1, 1, 10, 100],
+        'svr__C': [0.01, 0.1, 1, 10, 100],
         'svr__gamma': [0.001, 0.01, 0.1, 0.2],
         'svr__kernel': ['rbf', 'linear', 'poly']
     }
 
-    # Adjust the number of neighbors for KNN based on the number of samples
     knn_param_grid = {
-        'knn__n_neighbors': [3, 5, 7],
+        'knn__n_neighbors': [3, 5],
         'knn__weights': ['uniform', 'distance'],
         'knn__algorithm': ['ball_tree', 'kd_tree']
     }
